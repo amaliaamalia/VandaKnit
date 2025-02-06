@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VandaKnit.Api.Data.Repositories;
 using VandaKnit.Api.Data.Repositories.Interfaces;
@@ -36,6 +37,7 @@ public class InventoryController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<Inventory>> AddInventory([FromBody] Inventory inventory)
     {
         await _inventoryRepository.AddAsync(inventory);
@@ -43,6 +45,7 @@ public class InventoryController : ControllerBase
     }
 
     [HttpPut("{Id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult> UpdateInventory(Guid Id, [FromBody] Inventory inventory)
     {
         var existingInventory = await _inventoryRepository.GetByIdAsync(Id);
@@ -57,6 +60,7 @@ public class InventoryController : ControllerBase
     }
 
     [HttpDelete("{Id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult> DeleteInventory(Guid Id)
     {
         var inventory = await _inventoryRepository.GetByIdAsync(Id);

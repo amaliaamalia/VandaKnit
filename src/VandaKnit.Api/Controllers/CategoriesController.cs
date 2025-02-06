@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VandaKnit.Api.Data.Repositories.Interfaces;
 using VandaKnit.Api.Models;
@@ -35,6 +36,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<Category>> AddCategory([FromBody] Category category)
     {
         await _categoryRepository.AddAsync(category);
@@ -42,6 +44,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpPut("{Id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult> UpdateCategory(Guid Id, [FromBody] Category category)
     {
         var existingCategory = await _categoryRepository.GetByIdAsync(Id);
@@ -56,6 +59,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpDelete("{Id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult> DeleteCategory(Guid Id)
     {
         var category = await _categoryRepository.GetByIdAsync(Id);

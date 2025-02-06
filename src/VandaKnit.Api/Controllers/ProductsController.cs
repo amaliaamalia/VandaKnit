@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using VandaKnit.Api.Data.Repositories.Interfaces;
 using VandaKnit.Api.Models;
 
@@ -41,6 +42,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<Product>> AddProduct([FromBody] Product product)
     {
         await _productRepository.AddAsync(product);
@@ -48,6 +50,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPut("{Id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult> UpdateProduct(Guid Id, [FromBody] Product product)
     {
         var existingProduct = await _productRepository.GetByIdAsync(Id);
@@ -62,6 +65,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpDelete("{Id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult> DeleteProduct(Guid Id)
     {
         var product = await _productRepository.GetByIdAsync(Id);

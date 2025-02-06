@@ -16,4 +16,6 @@ public class AppDbContext : DbContext
     public DbSet<Inventory> Inventories { get; set; }
 
     public DbSet<Order> Orders { get; set; }
+
+    public DbSet<User> Users { get; set; }
 }

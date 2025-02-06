@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VandaKnit.Api.Data.Repositories.Interfaces;
 using VandaKnit.Api.Models;
@@ -5,6 +6,7 @@ using VandaKnit.Api.Models;
 namespace VandaKnit.Api.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("[controller]")]
 public class OrdersController : ControllerBase
 {
@@ -42,6 +44,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPut("{Id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult> UpdateOrder(Guid Id, [FromBody] Order order)
     {
         var existingOrder = await _orderRepository.GetByIdAsync(Id);
@@ -56,6 +59,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpDelete("{Id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult> DeleteOrder(Guid Id)
     {
         var order = await _orderRepository.GetByIdAsync(Id);
