@@ -1,12 +1,13 @@
-﻿namespace VandaKnit.Api.Models;
+﻿using System.Data;
+
+namespace VandaKnit.Api.Models;
 
 public class User
 {
-    public int Id { get; set; }
-
-    public required string Name { get; set; }
-
-    public required string Email { get; set; }
-
-    public required string Password { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public string Email { get; set; } = string.Empty;
+    public string PasswordHash { get; set; } = string.Empty;
+    public Guid RoleId { get; set; }
+    public Role Role { get; set; } = null!;
+    public List<Order> Orders { get; set; } = new();
 }

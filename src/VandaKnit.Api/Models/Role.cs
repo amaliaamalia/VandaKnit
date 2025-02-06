@@ -1,9 +1,8 @@
 ﻿namespace VandaKnit.Api.Models;
 
-public class Category
+public class Role
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get; set; } = string.Empty;
-    public List<Category> SubCategories { get; set; } = new();
-    public List<Product> Products { get; set; } = new();
+    public List<User> Users { get; set; } = new();
 }

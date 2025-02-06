@@ -2,13 +2,11 @@
 
 public class Product
 {
-    public int Id { get; set; }
-
-    public required string Name { get; set; }
-
-    public string? Description { get; set; }
-
-    public int? CategoryId { get; set; }
-
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public string Name { get; set; } = string.Empty;
+    public string? Description { get; set; } = string.Empty;
+    public Guid? CategoryId { get; set; }
+    public Category Category { get; set; } = null!;
     public decimal Price { get; set; }
+    public List<ProductVariant> Variants { get; set; } = new();
 }
