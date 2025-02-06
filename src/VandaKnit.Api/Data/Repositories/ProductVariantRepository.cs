@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using VandaKnit.Api.Data.Repositories.Interfaces;
 using VandaKnit.Api.Models;
 
 namespace VandaKnit.Api.Data.Repositories;
@@ -18,7 +19,8 @@ public class ProductVariantRepository : IProductVariantRepository
         return await _context.ProductVariants
             .Skip(skip)
             .Take(take)
-            .OrderBy(GetOrderByExpression(orderBy)).ToListAsync();
+            .OrderBy(GetOrderByExpression(orderBy))
+            .ToListAsync();
     }
 
     public async Task<ProductVariant?> GetByIdAsync(Guid id)

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using VandaKnit.Api.Data.Repositories.Interfaces;
 using VandaKnit.Api.Models;
 
 namespace VandaKnit.Api.Data.Repositories;

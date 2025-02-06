@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VandaKnit.Api.Data.Repositories;
+using VandaKnit.Api.Data.Repositories.Interfaces;
 using VandaKnit.Api.Models;
 
 namespace VandaKnit.Api.Controllers;

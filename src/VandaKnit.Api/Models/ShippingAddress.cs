@@ -3,8 +3,6 @@
 public class ShippingAddress
 {
     public Guid Id { get; set; } = Guid.NewGuid();
-    public Guid UserId { get; set; }
-    public User User { get; set; } = null!;
     public Guid OrderId { get; set; }
     public Order Order { get; set; } = null!;
     public string FullName { get; set; } = string.Empty;

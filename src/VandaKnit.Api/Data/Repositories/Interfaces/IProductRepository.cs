@@ -1,6 +1,6 @@
 ﻿using VandaKnit.Api.Models;
 
-namespace VandaKnit.Api.Data.Repositories;
+namespace VandaKnit.Api.Data.Repositories.Interfaces;
 
 public interface IProductRepository
 {
@@ -13,6 +13,6 @@ public interface IProductRepository
     Task AddAsync(Product entity);
 
     Task UpdateAsync(Product entity);
-    
+
     Task DeleteAsync(Product entity);
 }

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using VandaKnit.Api.Data;
 using VandaKnit.Api.Data.Repositories;
+using VandaKnit.Api.Data.Repositories.Interfaces;
 using VandaKnit.Api.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);

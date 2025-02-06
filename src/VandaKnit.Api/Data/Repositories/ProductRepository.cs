@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using VandaKnit.Api.Data.Repositories.Interfaces;
 using VandaKnit.Api.Models;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
@@ -58,9 +59,9 @@ public class ProductRepository : IProductRepository
     {
         return column?.ToUpperInvariant() switch
         {
-            "NAME" => product => product.Name,
-            "PRICE" => product => product.Price,
-            _ => product => product.Id,
+            "NAME" => entity => entity.Name,
+            "PRICE" => entity => entity.Price,
+            _ => entity => entity.Id,
         };
     }
 }
