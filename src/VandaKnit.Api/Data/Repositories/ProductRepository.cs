@@ -15,21 +15,32 @@ public class ProductRepository : IProductRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<Product>> GetByCategoryIdAsync(Guid categoryId, int skip = 0, int take = 100, string? orderBy = null)
+    public async Task<IEnumerable<Product>> GetByCategoryIdAsync(Guid categoryId, int skip = 0, int take = 100, string? orderBy = null, bool orderAscending = true)
     {
-        return await _context.Products
+
+        var query = _context.Products
             .Where(p => p.CategoryId == categoryId)
             .Skip(skip)
             .Take(take)
-            .OrderBy(GetOrderByExpression(orderBy)).ToListAsync();
+            .OrderBy(GetOrderByExpression(orderBy)).OrderDescending();
+
+        if (!orderAscending)
+            query = query.OrderDescending();
+
+        return await query.ToListAsync();
     }
 
-    public async Task<IEnumerable<Product>> GetAsync(int skip = 0, int take = 100, string? orderBy = null)
+    public async Task<IEnumerable<Product>> GetAsync(int skip = 0, int take = 100, string? orderBy = null, bool orderAscending = true)
     {
-        return await _context.Products
+        var query = _context.Products
             .Skip(skip)
             .Take(take)
-            .OrderBy(GetOrderByExpression(orderBy)).ToListAsync();
+            .OrderBy(GetOrderByExpression(orderBy));
+
+        if (!orderAscending)
+            query = query.OrderDescending();
+
+        return await query.ToListAsync();
     }
 
     public async Task<Product?> GetByIdAsync(Guid id)

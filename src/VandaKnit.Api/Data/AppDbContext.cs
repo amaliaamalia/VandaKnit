@@ -11,11 +11,13 @@ public class AppDbContext : DbContext
 
     public DbSet<Category> Categories { get; set; }
 
-    public DbSet<ProductVariant> ProductVariants { get; set; }
-
     public DbSet<Inventory> Inventories { get; set; }
 
     public DbSet<Order> Orders { get; set; }
 
+    public DbSet<ShippingAddress> ShippingAddresses { get; set; }
+
     public DbSet<User> Users { get; set; }
+
+    public DbSet<Role> Roles { get; set; }
 }

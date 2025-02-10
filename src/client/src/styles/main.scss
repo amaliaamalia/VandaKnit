@@ -1,0 +1,19 @@
+@import 'variables';
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: $light-bg;
+  color: $font-color;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 100%;
+  margin: auto;
+  padding: 20px;
+}
+
+button {
+  @include button($primary-color);
+}

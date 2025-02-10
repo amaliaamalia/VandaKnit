@@ -17,9 +17,9 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<Product>> GetProducts(int skip = 0, int take = 10, string? orderBy = null)
+    public async Task<IEnumerable<Product>> GetProducts(int page = 1, int pageSize = 10, string? orderBy = null, string sortOrder = "asc")
     {
-        return await _productRepository.GetAsync(skip, take, orderBy);
+        return await _productRepository.GetAsync((page - 1) * pageSize, pageSize, orderBy, sortOrder == "asc");
     }
 
     [HttpGet("{Id}")]
@@ -36,13 +36,13 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet("category/{categoryId}")]
-    public async Task<IEnumerable<Product>> GetProductsByCategoryId(Guid categoryId, int skip = 0, int take = 10, string? orderBy = null)
+    public async Task<IEnumerable<Product>> GetProductsByCategoryId(Guid categoryId, int page = 1, int pageSize = 10, string? orderBy = null, string sortOrder = "asc")
     {
-        return await _productRepository.GetByCategoryIdAsync(categoryId, skip, take, orderBy);
+        return await _productRepository.GetByCategoryIdAsync(categoryId, (page - 1) * pageSize, pageSize, orderBy, sortOrder == "asc");
     }
 
     [HttpPost]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<ActionResult<Product>> AddProduct([FromBody] Product product)
     {
         await _productRepository.AddAsync(product);
@@ -50,7 +50,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPut("{Id}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<ActionResult> UpdateProduct(Guid Id, [FromBody] Product product)
     {
         var existingProduct = await _productRepository.GetByIdAsync(Id);
@@ -65,7 +65,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpDelete("{Id}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<ActionResult> DeleteProduct(Guid Id)
     {
         var product = await _productRepository.GetByIdAsync(Id);

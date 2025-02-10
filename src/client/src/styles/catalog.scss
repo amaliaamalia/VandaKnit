@@ -1,0 +1,67 @@
+@import 'variables';
+
+.catalog {
+  padding: 20px;
+
+  h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    font-size: 1.5em;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      margin: 5px 0;
+      padding: 10px;
+      border: 1px solid $secondary-color;
+      border-radius: $border-radius;
+      background-color: $light-bg;
+    }
+  }
+
+  .sort-buttons {
+    margin-bottom: 20px;
+
+    button {
+      margin-right: 10px;
+      @include button($primary-color);
+    }
+  }
+
+  .product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .pagination {
+    margin-top: 20px;
+    @include flex-center;
+
+    button {
+      margin: 0 10px;
+      @include button($primary-color);
+
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+
+      &:hover:not(:disabled) {
+        background-color: $secondary-color;
+      }
+    }
+
+    span {
+      font-size: 1.2em;
+    }
+  }
+}

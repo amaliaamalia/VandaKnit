@@ -10,5 +10,6 @@ public static class WebApplicationExtensions
 
         var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         context.Database.EnsureCreated();
+        context.Seed();
     }
 }

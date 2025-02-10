@@ -1,0 +1,43 @@
+@import 'variables';
+
+.manage-products {
+  padding: 20px;
+
+  h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+
+  input {
+    margin-right: 10px;
+    padding: $padding;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+  }
+
+  button {
+    @include button($primary-color);
+    margin-top: 10px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      margin: 5px 0;
+      padding: $padding;
+      border: 1px solid $border-color;
+      border-radius: $border-radius;
+      background-color: $light-bg;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      button {
+        margin-left: 10px;
+        @include button($secondary-color);
+      }
+    }
+  }
+}

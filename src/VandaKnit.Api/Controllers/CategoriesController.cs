@@ -17,9 +17,9 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<Category>> GetCategories(int skip = 0, int take = 10, string? orderBy = null)
+    public async Task<IEnumerable<Category>> GetCategories(int page = 1, int pageSize = 10, string? orderBy = null, bool orderAscending = true)
     {
-        return await _categoryRepository.GetAsync(skip, take, orderBy);
+        return await _categoryRepository.GetAsync((page - 1) * pageSize, pageSize, orderBy);
     }
 
     [HttpGet("{Id}")]

@@ -23,8 +23,8 @@ public class AuthenticationService : IAuthenticationService
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Email),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Role, user.Role.Name)
+            new Claim("Id", user.Id.ToString()),
+            new Claim("Role", user.Role == null ? "User" : user.Role.Name)
         };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));

@@ -14,12 +14,17 @@ public class CategoryRepository : ICategoryRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<Category>> GetAsync(int skip = 0, int take = 100, string? orderBy = null)
+    public async Task<IEnumerable<Category>> GetAsync(int skip = 0, int take = 100, string? orderBy = null, bool orderAscending = true)
     {
-        return await _context.Categories
+        var query = _context.Categories
             .Skip(skip)
             .Take(take)
-            .OrderBy(GetOrderByExpression(orderBy)).ToListAsync();
+            .OrderBy(GetOrderByExpression(orderBy));
+
+        if (!orderAscending)
+            query = query.OrderDescending();
+
+        return await query.ToListAsync();
     }
 
     public async Task<Category?> GetByIdAsync(Guid id)

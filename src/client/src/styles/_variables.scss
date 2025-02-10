@@ -1,0 +1,27 @@
+$primary-color: #5c67f2;
+$secondary-color: #222;
+$light-bg: #f8f9fa;
+$dark-bg: #1a1a1a;
+$font-color: #333;
+$border-radius: 8px;
+$transition: all 0.3s ease-in-out;
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin button($bg-color) {
+  background: $bg-color;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}

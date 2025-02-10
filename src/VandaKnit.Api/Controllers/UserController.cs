@@ -45,7 +45,7 @@ public class UserController : ControllerBase
         var existingUser = await _userRepository.GetByEmailAsync(request.Email);
         if (existingUser == null || !BCrypt.Net.BCrypt.Verify(request.Password, existingUser.PasswordHash))
         {
-            return Unauthorized("Invalid credentials");
+            return Unauthorized("Wrong email or password");
         }
 
         var token = _authenticationService.GenerateToken(existingUser);
