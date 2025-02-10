@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../app/store';
 import { createProduct, deleteProduct, fetchProducts, updateProduct } from '../features/admin/AdminCatalogSlice';
+import ManageProductCard from './ManageProductCard';
+import '../styles/manageProducts.scss';
 
 const ManageProducts = () => {
     const dispatch = useAppDispatch();
@@ -30,7 +32,7 @@ const ManageProducts = () => {
     if (error) return <div>Error: {error}</div>;
 
     return (
-        <div>
+        <div className="manage-products">
             <h1>Manage Products</h1>
             <input
                 type="text"
@@ -47,11 +49,12 @@ const ManageProducts = () => {
             <button onClick={handleCreate}>Create Product</button>
             <ul>
                 {products.map((product) => (
-                    <li key={product.id}>
-                        {product.name} - ${product.price}
-                        <button onClick={() => handleUpdate(product.id)}>Update</button>
-                        <button onClick={() => handleDelete(product.id)}>Delete</button>
-                    </li>
+                    <ManageProductCard
+                        key={product.id}
+                        product={product}
+                        onUpdate={handleUpdate}
+                        onDelete={handleDelete}
+                    />
                 ))}
             </ul>
         </div>

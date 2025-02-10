@@ -10,13 +10,12 @@
 
   input {
     margin-right: 10px;
-    padding: $padding;
+    padding: 10px;
     border: 1px solid $border-color;
     border-radius: $border-radius;
   }
 
   button {
-    @include button($primary-color);
     margin-top: 10px;
   }
 
@@ -26,7 +25,7 @@
 
     li {
       margin: 5px 0;
-      padding: $padding;
+      padding: 10px;
       border: 1px solid $border-color;
       border-radius: $border-radius;
       background-color: $light-bg;
@@ -36,8 +35,27 @@
 
       button {
         margin-left: 10px;
-        @include button($secondary-color);
       }
     }
+  }
+}
+
+.manage-product-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  input {
+    margin-right: 10px;
+    padding: 5px;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+  }
+
+  button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: $border-radius;
   }
 }

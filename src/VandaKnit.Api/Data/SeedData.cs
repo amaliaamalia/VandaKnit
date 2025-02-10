@@ -34,14 +34,16 @@ public static class SeedData
                 Name = "T-Shirt",
                 Description = "A comfortable cotton t-shirt",
                 Category = categories[0],
-                Price = 19.99m
+                Price = 19.99m,
+                Inventory = 100
             },
             new Product
             {
                 Name = "Handbag",
                 Description = "A stylish leather handbag",
                 Category = categories[1],
-                Price = 49.99m
+                Price = 49.99m,
+                Inventory = 0
             }
         };
 

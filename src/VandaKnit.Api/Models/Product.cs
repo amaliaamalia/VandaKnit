@@ -8,5 +8,5 @@ public class Product
     public Guid? CategoryId { get; set; }
     public Category? Category { get; set; } = null!;
     public decimal Price { get; set; }
-    public Inventory Inventory { get; set; } = null!;
+    public int Inventory { get; set; }
 }
