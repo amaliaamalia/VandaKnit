@@ -1,0 +1,41 @@
+@import 'variables';
+
+.basket {
+  padding: 20px;
+
+  h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      margin: 5px 0;
+      padding: 10px;
+      border: 1px solid $border-color;
+      border-radius: $border-radius;
+      background-color: $light-bg;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      button {
+        margin-left: 10px;
+        @include button($primary-color);
+      }
+    }
+  }
+
+  .basket-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      @include button($primary-color);
+    }
+  }
+}

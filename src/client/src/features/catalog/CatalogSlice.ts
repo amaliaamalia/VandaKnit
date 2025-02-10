@@ -1,10 +1,13 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import api from '../../api/api';
 import { RootState } from '../../app/store';
+import { Product } from '../../types/Product';
+import { Category } from '../../types/Category';
 
 interface CatalogState {
-  categories: any[];
-  products: any[];
+  categories: Category[];
+  category: Category | null;
+  products: Product[];
   loading: boolean;
   error: string | null;
   currentPage: number;
@@ -15,6 +18,7 @@ interface CatalogState {
 
 const initialState: CatalogState = {
   categories: [],
+  category: null,
   products: [],
   loading: false,
   error: null,
@@ -36,6 +40,18 @@ export const fetchCategories = createAsyncThunk(
   }
 );
 
+export const fetchCategoryById = createAsyncThunk(
+  'catalog/fetchCategoryById',
+  async (categoryId: string, thunkAPI) => {
+    try {
+      const response = await api.get(`/Categories/${categoryId}`);
+      return response.data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response?.data || 'Failed to fetch category');
+    }
+  }
+);
+
 export const fetchProducts = createAsyncThunk(
   'catalog/fetchProducts',
   async (_, thunkAPI) => {
@@ -53,6 +69,25 @@ export const fetchProducts = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response?.data || 'Failed to fetch products');
+    }
+  }
+);
+
+export const fetchProductsByCategory = createAsyncThunk(
+  'catalog/fetchProductsByCategory',
+  async ({ categoryId, page, pageSize, orderBy, sortOrder }: { categoryId: string; page: number; pageSize: number; orderBy: string; sortOrder: string }, thunkAPI) => {
+    try {
+      const response = await api.get(`/Products/category/${categoryId}`, {
+        params: {
+          page,
+          pageSize,
+          orderBy,
+          sortOrder,
+        },
+      });
+      return response.data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response?.data || 'Failed to fetch products by category');
     }
   }
 );
@@ -85,6 +120,18 @@ const catalogSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
+      .addCase(fetchCategoryById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchCategoryById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.category = action.payload;
+      })
+      .addCase(fetchCategoryById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
       .addCase(fetchProducts.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -94,6 +141,18 @@ const catalogSlice = createSlice({
         state.products = action.payload;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(fetchProductsByCategory.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchProductsByCategory.fulfilled, (state, action) => {
+        state.loading = false;
+        state.products = action.payload;
+      })
+      .addCase(fetchProductsByCategory.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VandaKnit.Api.Data.Repositories.Interfaces;
+using VandaKnit.Api.Dto;
 using VandaKnit.Api.Models;
 
 namespace VandaKnit.Api.Controllers;
@@ -43,8 +44,18 @@ public class ProductsController : ControllerBase
 
     [HttpPost]
     [Authorize(Policy = "AdminOnly")]
-    public async Task<ActionResult<Product>> AddProduct([FromBody] Product product)
+    public async Task<ActionResult<Product>> AddProduct([FromBody] CreateProductDto createProductRequest)
     {
+        var product = new Product
+        {
+            Id = Guid.NewGuid(),
+            Name = createProductRequest.Name,
+            Description = createProductRequest.Description,
+            Price = createProductRequest.Price,
+            Inventory = createProductRequest.Inventory,
+            CategoryId = createProductRequest.CategoryId
+        };
+
         await _productRepository.AddAsync(product);
         return StatusCode(200, product);
     }
@@ -59,8 +70,11 @@ public class ProductsController : ControllerBase
             return StatusCode(404, "Product not found");
         }
 
-        product.Id = Id;
-        await _productRepository.UpdateAsync(product);
+        existingProduct.Name = product.Name;
+        existingProduct.Description = product.Description;
+        existingProduct.Inventory = product.Inventory;
+        existingProduct.CategoryId = product.CategoryId;
+        await _productRepository.UpdateAsync(existingProduct);
         return StatusCode(200);
     }
 

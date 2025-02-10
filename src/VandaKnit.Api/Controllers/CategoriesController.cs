@@ -36,7 +36,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<ActionResult<Category>> AddCategory([FromBody] Category category)
     {
         await _categoryRepository.AddAsync(category);
@@ -44,7 +44,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpPut("{Id}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<ActionResult> UpdateCategory(Guid Id, [FromBody] Category category)
     {
         var existingCategory = await _categoryRepository.GetByIdAsync(Id);
@@ -59,7 +59,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpDelete("{Id}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<ActionResult> DeleteCategory(Guid Id)
     {
         var category = await _categoryRepository.GetByIdAsync(Id);

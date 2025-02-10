@@ -1,25 +1,27 @@
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from 'jwt-decode';
+import { User } from '../types/User';
 
-export const getRoleFromToken = (token: string | null) => {
-    if (token) {
-        try {
-            const decodedToken: any = jwtDecode(token);
-            return decodedToken?.role || null;
-        } catch (error) {
-            return null;
-        }
+export const getRoleFromToken = (token: string | null) : string | null => {
+  if (token) {
+    try {
+      const decodedToken: User = jwtDecode(token);
+
+      return decodedToken?.Role || null;
+    } catch {
+      return null;
     }
-    return null;
+  }
+  return null;
 };
 
-export const getUserIdFromToken = (token: string | null) => {
-    if (token) {
-        try {
-            const decodedToken: any = jwtDecode(token);
-            return decodedToken?.userId || null;
-        } catch (error) {
-            return null;
-        }
+export const getUserIdFromToken = (token: string | null) : string | null => {
+  if (token) {
+    try {
+      const decodedToken: User = jwtDecode(token);
+      return decodedToken?.UserId || null;
+    } catch {
+      return null;
     }
-    return null;
+  }
+  return null;
 };

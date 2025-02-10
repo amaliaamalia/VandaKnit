@@ -19,6 +19,16 @@
   h3 {
     font-size: 1.2em;
     margin: 8px 0;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #5c67f2; // Use your primary color
+      }
+    }
   }
 
   p {
@@ -26,8 +36,22 @@
     color: #333;
   }
 
+  .in-stock {
+    color: green;
+  }
+
+  .out-of-stock {
+    color: red;
+  }
+
   button {
     padding: 8px 16px;
     border-radius: 4px;
+    cursor: pointer;
+
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
   }
 }

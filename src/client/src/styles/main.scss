@@ -9,11 +9,28 @@ body {
 }
 
 .container {
-  width: 100%;
-  margin: auto;
   padding: 20px;
+  margin: 20px auto;
+  background-color: transparent;
+  max-width: 1200px;
 }
 
 button {
   @include button($primary-color);
+}
+select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1em;
+  color: $font-color;
+  background-color: $light-bg;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    border-color: $primary-color;
+    outline: none;
+  }
 }

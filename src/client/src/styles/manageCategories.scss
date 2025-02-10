@@ -1,6 +1,6 @@
 @import 'variables';
 
-.manage-products {
+.manage-categories {
   padding: 20px;
 
   h1 {
@@ -30,7 +30,7 @@
       border-radius: $border-radius;
       background-color: $light-bg;
 
-      .product-info {
+      .category-info {
         margin-bottom: 10px;
       }
 

@@ -1,20 +1,23 @@
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../app/store';
-import { fetchCategories, fetchProducts, setPage, setSortField, setSortOrder } from '../features/catalog/CatalogSlice';
+import { fetchCategoryById, fetchProductsByCategory, setPage, setSortField, setSortOrder } from '../features/catalog/CatalogSlice';
 import ProductCard from './ProductCard';
 import { Product } from '../types/Product';
-import { Link } from 'react-router-dom';
 import '../styles/catalog.scss';
 
-const Catalog = () => {
+const CategoryProducts = () => {
+  const { categoryId } = useParams<{ categoryId: string }>();
   const dispatch = useAppDispatch();
-  const { categories, products, error, currentPage, sortField, sortOrder } = useSelector((state: RootState) => state.catalog);
+  const { category, products, error, currentPage, sortField, sortOrder } = useSelector((state: RootState) => state.catalog);
 
   useEffect(() => {
-    dispatch(fetchCategories());
-    dispatch(fetchProducts());
-  }, [dispatch, currentPage, sortField, sortOrder]);
+    if (categoryId) {
+      dispatch(fetchCategoryById(categoryId));
+      dispatch(fetchProductsByCategory({ categoryId, page: currentPage, pageSize: 10, orderBy: sortField, sortOrder }));
+    }
+  }, [dispatch, categoryId, currentPage, sortField, sortOrder]);
 
   const handlePageChange = (newPage: number) => {
     dispatch(setPage(newPage));
@@ -28,19 +31,7 @@ const Catalog = () => {
 
   return (
     <div className="container catalog">
-      {error && <div>Error: {error}</div>}
-      {!error && (
-        <div className="category-list">
-          {categories.map((category) => (
-            <div key={category.id} className="category-card">
-              <h3>
-                <Link to={`/category/${category.id}`}>{category.name}</Link>
-              </h3>
-            </div>
-          ))}
-        </div>
-      )}
-      <h2>Products</h2>
+      {category && <h1>{category.name}</h1>}
       <div className="sort-buttons">
         <button onClick={() => handleSortChange('name')}>
           Name {sortField === 'name' && (sortOrder === 'asc' ? '↑' : '↓')}
@@ -70,4 +61,4 @@ const Catalog = () => {
   );
 };
 
-export default Catalog;
+export default CategoryProducts;

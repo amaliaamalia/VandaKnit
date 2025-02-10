@@ -4,7 +4,11 @@ import Navbar from './components/Navbar';
 import './styles/main.scss';
 import Register from './components/Register';
 import Catalog from './components/Catalog';
-import ManageProducts from './components/ManageProducts';
+import AdminPanel from './components/AdminPanel';
+import ProtectedRoute from './components/ProtectedRoute';
+import ProductDetail from './components/ProductDetail';
+import CategoryProducts from './components/CategoryProducts';
+import Basket from './components/Basket';
 
 const App = () => {
   return (
@@ -14,7 +18,12 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Catalog />} />
-        <Route path="/admin" element={<ManageProducts />} />
+        <Route path="/product/:productId" element={<ProductDetail />} />
+        <Route path="/category/:categoryId" element={<CategoryProducts />} />
+        <Route path="/basket" element={<Basket />} />
+        <Route element={<ProtectedRoute allowedRoles={['Admin']} />}>
+          <Route path="/admin" element={<AdminPanel />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
