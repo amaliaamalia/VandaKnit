@@ -58,7 +58,7 @@ const Basket = () => {
           ))}
         </ul>
       )}
-      {items.length > 0 && (
+      {items.length > 0 && token && (
         <div className="basket-actions">
           <button onClick={handleClearBasket}>Clear Basket</button>
           <button onClick={handleCreateOrder}>Checkout</button>

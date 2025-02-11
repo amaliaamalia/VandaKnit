@@ -23,7 +23,9 @@ const App = () => {
         <Route path="/product/:productId" element={<ProductDetail />} />
         <Route path="/category/:categoryId" element={<CategoryProducts />} />
         <Route path="/basket" element={<Basket />} />
-        <Route path="/orders" element={<Orders />} />
+        <Route element={<ProtectedRoute allowedRoles={['Admin', 'User']} />}>
+          <Route path="/orders" element={<Orders />} />
+        </Route>
         <Route path="/order/:orderId" element={<OrderDetail />} />
         <Route element={<ProtectedRoute allowedRoles={['Admin']} />}>
           <Route path="/admin" element={<AdminPanel />} />
