@@ -14,20 +14,28 @@ public class OrderRepository : IOrderRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<Order>> GetAsync(int skip, int take, string? orderBy)
+    public async Task<IEnumerable<Order>> GetByUserIdAsync(Guid userId, int skip, int take, string? orderBy, bool orderAscending = true)
     {
-        return await _context.Orders
+
+        var query = _context.Orders
+            .Where(o => o.UserId == userId)
             .Include(o => o.OrderItems)
             .Include(o => o.Payment)
             .Include(o => o.ShippingAddress)
             .OrderBy(GetOrderByExpression(orderBy))
-            .Skip(skip).Take(take).ToListAsync();
+            .Skip(skip).Take(take);
+
+        if (!orderAscending)
+            query = query.OrderDescending();
+
+        return await query.ToListAsync();
     }
 
     public async Task<Order?> GetByIdAsync(Guid id)
     {
         return await _context.Orders
             .Include(o => o.OrderItems)
+                .ThenInclude(o => o.Product)
             .Include(o => o.Payment)
             .Include(o => o.ShippingAddress)
             .FirstOrDefaultAsync(o => o.Id == id);

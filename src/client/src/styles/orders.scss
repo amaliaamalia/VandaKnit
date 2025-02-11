@@ -1,0 +1,65 @@
+@import 'variables';
+
+.orders {
+  padding: 20px;
+
+  h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+
+  .sort-buttons {
+    margin-bottom: 20px;
+
+    button {
+      margin-right: 10px;
+      @include button($primary-color);
+    }
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      margin: 5px 0;
+      padding: 10px;
+      border: 1px solid $border-color;
+      border-radius: $border-radius;
+      background-color: $light-bg;
+
+      a {
+        text-decoration: none;
+        color: $primary-color;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: darken($primary-color, 10%);
+        }
+      }
+    }
+  }
+
+  .pagination {
+    margin-top: 20px;
+    @include flex-center;
+
+    button {
+      margin: 0 10px;
+      @include button($primary-color);
+
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+
+      &:hover:not(:disabled) {
+        background-color: $secondary-color;
+      }
+    }
+
+    span {
+      font-size: 1.2em;
+    }
+  }
+}

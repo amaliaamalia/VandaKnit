@@ -5,6 +5,7 @@ import authReducer from '../features/auth/AuthSlice';
 import catalogReducer from '../features/catalog/CatalogSlice';
 import productDetailReducer from '../features/catalog/ProductDetailSlice';
 import basketReducer from '../features/basket/BasketSlice';
+import orderReducer from '../features/orders/OrderSlice';
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     adminCatalog: adminCatalogReducer,
     productDetail: productDetailReducer,
     basket: basketReducer,
+    orders: orderReducer,
   },
 });
 

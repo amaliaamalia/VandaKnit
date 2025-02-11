@@ -1,0 +1,48 @@
+@import 'variables';
+
+.order-detail {
+  padding: 20px;
+
+  h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+
+  h3 {
+    font-size: 1.2em;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 80%;
+      padding: 10px;
+      border: 1px solid $border-color;
+      border-radius: $border-radius;
+    }
+  }
+
+  .error {
+    color: red;
+    margin-bottom: 15px;
+  }
+
+  button {
+    @include button($primary-color);
+    width: 8%;
+  }
+}

@@ -11,8 +11,17 @@ interface BasketState {
   items: BasketItem[];
 }
 
+const loadBasketFromLocalStorage = (): BasketItem[] => {
+  const basket = localStorage.getItem('basket');
+  return basket ? JSON.parse(basket) : [];
+};
+
+const saveBasketToLocalStorage = (basket: BasketItem[]) => {
+  localStorage.setItem('basket', JSON.stringify(basket));
+};
+
 const initialState: BasketState = {
-  items: [],
+  items: loadBasketFromLocalStorage(),
 };
 
 const basketSlice = createSlice({
@@ -26,12 +35,15 @@ const basketSlice = createSlice({
       } else {
         state.items.push({ product: action.payload, quantity: 1 });
       }
+      saveBasketToLocalStorage(state.items);
     },
     removeFromBasket: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter(item => item.product.id !== action.payload);
+      saveBasketToLocalStorage(state.items);
     },
     clearBasket: (state) => {
       state.items = [];
+      saveBasketToLocalStorage(state.items);
     },
   },
 });

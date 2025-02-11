@@ -9,6 +9,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import ProductDetail from './components/ProductDetail';
 import CategoryProducts from './components/CategoryProducts';
 import Basket from './components/Basket';
+import Orders from './components/Orders';
+import OrderDetail from './components/OrderDetail';
 
 const App = () => {
   return (
@@ -21,6 +23,8 @@ const App = () => {
         <Route path="/product/:productId" element={<ProductDetail />} />
         <Route path="/category/:categoryId" element={<CategoryProducts />} />
         <Route path="/basket" element={<Basket />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/order/:orderId" element={<OrderDetail />} />
         <Route element={<ProtectedRoute allowedRoles={['Admin']} />}>
           <Route path="/admin" element={<AdminPanel />} />
         </Route>

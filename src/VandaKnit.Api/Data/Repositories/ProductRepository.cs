@@ -17,7 +17,6 @@ public class ProductRepository : IProductRepository
 
     public async Task<IEnumerable<Product>> GetByCategoryIdAsync(Guid categoryId, int skip = 0, int take = 100, string? orderBy = null, bool orderAscending = true)
     {
-
         var query = _context.Products
             .Where(p => p.CategoryId == categoryId)
             .Skip(skip)

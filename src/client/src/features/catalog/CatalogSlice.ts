@@ -3,6 +3,7 @@ import api from '../../api/api';
 import { RootState } from '../../app/store';
 import { Product } from '../../types/Product';
 import { Category } from '../../types/Category';
+import { ApiError } from '../../types/ApiError';
 
 interface CatalogState {
   categories: Category[];
@@ -34,8 +35,9 @@ export const fetchCategories = createAsyncThunk(
     try {
       const response = await api.get('/Categories');
       return response.data;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.response?.data || 'Failed to fetch categories');
+    } catch (error) {
+      const apiError = error as ApiError;
+      return thunkAPI.rejectWithValue(apiError.response?.data || 'Failed to fetch categories');
     }
   }
 );
@@ -46,8 +48,9 @@ export const fetchCategoryById = createAsyncThunk(
     try {
       const response = await api.get(`/Categories/${categoryId}`);
       return response.data;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.response?.data || 'Failed to fetch category');
+    } catch (error) {
+      const apiError = error as ApiError;
+      return thunkAPI.rejectWithValue(apiError.response?.data || 'Failed to fetch category');
     }
   }
 );
@@ -67,8 +70,9 @@ export const fetchProducts = createAsyncThunk(
         },
       });
       return response.data;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.response?.data || 'Failed to fetch products');
+    } catch (error) {
+      const apiError = error as ApiError;
+      return thunkAPI.rejectWithValue(apiError.response?.data || 'Failed to fetch products');
     }
   }
 );
@@ -86,8 +90,9 @@ export const fetchProductsByCategory = createAsyncThunk(
         },
       });
       return response.data;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.response?.data || 'Failed to fetch products by category');
+    } catch (error) {
+      const apiError = error as ApiError;
+      return thunkAPI.rejectWithValue(apiError.response?.data || 'Failed to fetch products by category');
     }
   }
 );

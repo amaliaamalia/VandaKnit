@@ -8,6 +8,6 @@ public class Order
     public string Status { get; set; } = "Pending";
     public decimal Total { get; set; }
     public List<OrderItem> OrderItems { get; set; } = new();
-    public Payment Payment { get; set; } = null!;
-    public ShippingAddress ShippingAddress { get; set; } = null!;
+    public Payment? Payment { get; set; }
+    public ShippingAddress? ShippingAddress { get; set; }
 }
